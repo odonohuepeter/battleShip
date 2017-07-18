@@ -171,12 +171,36 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
 	if (orientation == south && (begRow + (length - 1) > 10))
 		startRow = 8;
-	if (orientation == north && (begRow - (length - 1)) < 1)
+	if (orientation == south && begRow < 1)
+		startRow = 1;
+	if (orientation == south && begCol > 10)
+		startCol = 10;
+	if (orientation == south && begCol < 1)
+		startCol = 1;
+	if (orientation == north && (begRow - (length - 1) < 1))
 		startRow = 3;
+	if (orientation == north && begRow > 10)
+		startRow = 10;
+	if (orientation == north && begCol > 10)
+		startCol = 10;
+	if (orientation == north && begCol < 1)
+		startCol = 1;
 	if (orientation == east && (begCol + (length - 1) > 10))
 		startCol = 8;
-	if (orientation == west && (begCol - (length - 1)) < 1)
+	if (orientation == east && begCol < 1)
+		startCol = 1;
+	if (orientation == east && begRow > 10)
+		startRow = 10;
+	if (orientation == east && begRow < 1)
+		startRow = 1;
+	if (orientation == west && (begCol - (length - 1) < 1))
 		startCol = 3;
+	if (orientation == west && begCol > 10)
+		startCol = 10;
+	if (orientation == west && begRow > 10)
+		startRow = 10;
+	if (orientation == west && begRow < 1)
+		startRow = 1;
 }
 
 class Carrier : public Ship
@@ -198,12 +222,36 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
 	if (orientation == south && (begRow + (length - 1) > 10))
 		startRow = 7;
-	if (orientation == north && (begRow - (length - 1)) < 1)
+	if (orientation == south && begRow < 1)
+		startRow = 1;
+	if (orientation == south && begCol > 10)
+		startCol = 10;
+	if (orientation == south && begCol < 1)
+		startCol = 1;
+	if (orientation == north && (begRow - (length - 1) < 1))
 		startRow = 4;
+	if (orientation == north && begRow > 10)
+		startRow = 10;
+	if (orientation == north && begCol > 10)
+		startCol = 10;
+	if (orientation == north && begCol < 1)
+		startCol = 1;
 	if (orientation == east && (begCol + (length - 1) > 10))
 		startCol = 7;
-	if (orientation == west && (begCol - (length - 1)) < 1)
+	if (orientation == east && begCol < 1)
+		startCol = 1;
+	if (orientation == east && begRow > 10)
+		startRow = 10;
+	if (orientation == east && begRow < 1)
+		startRow = 1;
+	if (orientation == west && (begCol - (length - 1) < 1))
 		startCol = 4;
+	if (orientation == west && begCol > 10)
+		startCol = 10;
+	if (orientation == west && begRow > 10)
+		startRow = 10;
+	if (orientation == west && begRow < 1)
+		startRow = 1;
 }
 
 class Sub : public Ship
@@ -227,12 +275,36 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
 	if (orientation == south && (begRow + (length - 1) > 10))
 		startRow = 9;
-	if (orientation == north && (begRow - (length - 1)) < 1)
+	if (orientation == south && begRow < 1)
+		startRow = 1;
+	if (orientation == south && begCol > 10)
+		startCol = 10;
+	if (orientation == south && begCol < 1)
+		startCol = 1;
+	if (orientation == north && (begRow - (length - 1) < 1))
 		startRow = 2;
+	if (orientation == north && begRow > 10)
+		startRow = 10;
+	if (orientation == north && begCol > 10)
+		startCol = 10;
+	if (orientation == north && begCol < 1)
+		startCol = 1;
 	if (orientation == east && (begCol + (length - 1) > 10))
 		startCol = 9;
-	if (orientation == west && (begCol - (length - 1)) < 1)
+	if (orientation == east && begCol < 1)
+		startCol = 1;
+	if (orientation == east && begRow > 10)
+		startRow = 10;
+	if (orientation == east && begRow < 1)
+		startRow = 1;
+	if (orientation == west && (begCol - (length - 1) < 1))
 		startCol = 2;
+	if (orientation == west && begCol > 10)
+		startCol = 10;
+	if (orientation == west && begRow > 10)
+		startRow = 10;
+	if (orientation == west && begRow < 1)
+		startRow = 1;
 }
 
 // sub function definitions
