@@ -327,6 +327,5 @@ int main() {
 		}
 		cin >> choice;
 	}
-	cout << "Hello"
 	return 0;
 }
