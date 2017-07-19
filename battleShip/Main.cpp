@@ -167,9 +167,8 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 	length = 3;
 	damage = 4;
 	uWater = false;
-
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
-	if (orientation == south && (begRow + (length - 1) > 10))
+	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 8;
 	if (orientation == south && begRow < 1)
 		startRow = 1;
@@ -177,7 +176,7 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == south && begCol < 1)
 		startCol = 1;
-	if (orientation == north && (begRow - (length - 1) < 1))
+	if (orientation == north && ((begRow - (length - 1)) < 1))
 		startRow = 3;
 	if (orientation == north && begRow > 10)
 		startRow = 10;
@@ -185,7 +184,7 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == north && begCol < 1)
 		startCol = 1;
-	if (orientation == east && (begCol + (length - 1) > 10))
+	if (orientation == east && ((begCol + (length - 1)) > 10))
 		startCol = 8;
 	if (orientation == east && begCol < 1)
 		startCol = 1;
@@ -193,7 +192,7 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 		startRow = 10;
 	if (orientation == east && begRow < 1)
 		startRow = 1;
-	if (orientation == west && (begCol - (length - 1) < 1))
+	if (orientation == west && ((begCol - (length - 1)) < 1))
 		startCol = 3;
 	if (orientation == west && begCol > 10)
 		startCol = 10;
@@ -218,9 +217,8 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 	length = 4;
 	damage = 3;
 	uWater = false;
-
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
-	if (orientation == south && (begRow + (length - 1) > 10))
+	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 7;
 	if (orientation == south && begRow < 1)
 		startRow = 1;
@@ -228,7 +226,7 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == south && begCol < 1)
 		startCol = 1;
-	if (orientation == north && (begRow - (length - 1) < 1))
+	if (orientation == north && ((begRow - (length - 1)) < 1))
 		startRow = 4;
 	if (orientation == north && begRow > 10)
 		startRow = 10;
@@ -236,7 +234,7 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == north && begCol < 1)
 		startCol = 1;
-	if (orientation == east && (begCol + (length - 1) > 10))
+	if (orientation == east && ((begCol + (length - 1)) > 10))
 		startCol = 7;
 	if (orientation == east && begCol < 1)
 		startCol = 1;
@@ -244,7 +242,7 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 		startRow = 10;
 	if (orientation == east && begRow < 1)
 		startRow = 1;
-	if (orientation == west && (begCol - (length - 1) < 1))
+	if (orientation == west && ((begCol - (length - 1)) < 1))
 		startCol = 4;
 	if (orientation == west && begCol > 10)
 		startCol = 10;
@@ -271,9 +269,7 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 	speed = 2;
 	damage = 2;
 	uWater = false;
-
-	// verify ship doesn't exceed the board's boundaries when placed at starting square
-	if (orientation == south && (begRow + (length - 1) > 10))
+	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 9;
 	if (orientation == south && begRow < 1)
 		startRow = 1;
@@ -281,7 +277,7 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == south && begCol < 1)
 		startCol = 1;
-	if (orientation == north && (begRow - (length - 1) < 1))
+	if (orientation == north && ((begRow - (length - 1)) < 1))
 		startRow = 2;
 	if (orientation == north && begRow > 10)
 		startRow = 10;
@@ -289,7 +285,7 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 		startCol = 10;
 	if (orientation == north && begCol < 1)
 		startCol = 1;
-	if (orientation == east && (begCol + (length - 1) > 10))
+	if (orientation == east && ((begCol + (length - 1)) > 10))
 		startCol = 9;
 	if (orientation == east && begCol < 1)
 		startCol = 1;
@@ -297,7 +293,7 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 		startRow = 10;
 	if (orientation == east && begRow < 1)
 		startRow = 1;
-	if (orientation == west && (begCol - (length - 1) < 1))
+	if (orientation == west && ((begCol - (length - 1)) < 1))
 		startCol = 2;
 	if (orientation == west && begCol > 10)
 		startCol = 10;
