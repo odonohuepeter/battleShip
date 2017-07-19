@@ -2,7 +2,7 @@
 /*
 Author: Peter O'Donohue
 Creatoin Date: 07/11/17
-Modification Date: 07/18/17
+Modification Date: 07/19/17
 Description: FILL IN LATER
 */
 
@@ -22,6 +22,7 @@ public:
 	int getStartRow();
 	int getStartCol();
 	bool flipState();
+	bool getUwater();
 	string getType();
 	OrientType getOrient();
 	void move(int vel);
@@ -74,7 +75,10 @@ string Ship::getType()
 {
 	return type;
 }
-
+bool Ship::getUwater()
+{
+	return uWater;
+}
 bool Ship::flipState()
 {
 	if (type == "destroyer" || type == "carrier")
@@ -256,7 +260,6 @@ class Sub : public Ship
 {
 public:
 	Sub(OrientType, int, int);
-	bool getUwater();
 	void getHit(Ship);
 };
 
@@ -304,11 +307,6 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 }
 
 // sub function definitions
-bool Sub::getUwater()
-{
-	return uWater;
-}
-
 void Sub::getHit(Ship shipType)
 {
 	string tempType = shipType.getType();
@@ -349,6 +347,10 @@ ostream & operator<<(ostream &out, Ship * ship)
 		<< ship->getDamage() << " "
 		<< ship->getSpeed() << " "
 		<< orient2Str(ship->getOrient());
+	if (ship->getUwater())
+		out << " underwater";
+	else
+		out << " not underwater";
 
 	return out;
 }
@@ -395,5 +397,6 @@ int main() {
 		}
 		cin >> choice;
 	}
+
 	return 0;
 }
