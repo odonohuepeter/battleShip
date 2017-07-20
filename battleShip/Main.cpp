@@ -2,7 +2,7 @@
 /*
 Author: Peter O'Donohue
 Creatoin Date: 07/11/17
-Modification Date: 07/19/17
+Modification Date: 07/20/17
 Description: FILL IN LATER
 */
 
@@ -16,16 +16,16 @@ enum OrientType { north, south, east, west };
 class Ship
 {
 public:
-	Ship(OrientType, int, int);
+	Ship();
 	int getSpeed();
 	int getDamage();
 	int getStartRow();
 	int getStartCol();
-	bool flipState();
-	bool getUwater();
+	bool getUWater();
 	string getType();
 	OrientType getOrient();
 	void move(int vel);
+	virtual bool flipState();
 	virtual void getHit(Ship shipType);
 
 protected:
@@ -40,15 +40,11 @@ protected:
 };
 
 // Ship function definitions
-Ship::Ship(OrientType orientation, int begRow, int begCol)
+Ship::Ship()
 {
-	// verify legal orientation 
-	if (orientation == north || orientation == south || orientation == east || orientation == west)
-	{
-		orient = orientation;
-		startRow = begRow;
-		startCol = begCol;
-	}
+	orient = east;
+	startRow = 1;
+	startCol = 1;
 }
 
 int Ship::getSpeed()
@@ -75,18 +71,12 @@ string Ship::getType()
 {
 	return type;
 }
-bool Ship::getUwater()
+bool Ship::getUWater()
 {
 	return uWater;
 }
 bool Ship::flipState()
 {
-	if (type == "destroyer" || type == "carrier")
-		return uWater;
-	else if (uWater == false)
-		uWater = true;
-	else
-		uWater = false;
 	return uWater;
 }
 
@@ -137,18 +127,18 @@ void Ship::getHit(Ship shipType)
 {
 	string tempType = shipType.getType();
 
-	if (type == "destroyer")
+	if (type == "Destroyer")
 	{
-		if (tempType == "carrier" || tempType == "sub")
+		if (tempType == "Carrier" || tempType == "Sub")
 			if (damage == 0)
 				damage = 0;
 			else
 				--damage;
 	}
 
-	if (type == "carrier")
+	if (type == "Carrier")
 	{
-		if (tempType == "destroyer" || tempType == "sub")
+		if (tempType == "Destroyer" || tempType == "Sub")
 			if (damage == 0)
 				damage = 0;
 			else
@@ -164,13 +154,15 @@ public:
 
 // Destroyer function definitions
 Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
-	: Ship(orientation, begRow, begCol)
 {
-	type = "destroyer";
+	type = "Destroyer";
 	speed = 3;
 	length = 3;
 	damage = 4;
 	uWater = false;
+	startRow = begRow;
+	startCol = begCol;
+	orient = orientation;
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
 	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 8;
@@ -214,13 +206,15 @@ public:
 
 // Carrier function definitions
 Carrier::Carrier(OrientType orientation, int begRow, int begCol)
-	: Ship(orientation, begRow, begCol)
 {
-	type = "carrier";
+	type = "Carrier";
 	speed = 1;
 	length = 4;
 	damage = 3;
 	uWater = false;
+	startRow = begRow;
+	startCol = begCol;
+	orient = orientation;
 	// verify ship doesn't exceed the board's boundaries when placed at starting square
 	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 7;
@@ -261,17 +255,20 @@ class Sub : public Ship
 public:
 	Sub(OrientType, int, int);
 	void getHit(Ship);
+	bool flipState();
 };
 
 // sub function definitions
 Sub::Sub(OrientType orientation, int begRow, int begCol)
-	: Ship(orientation, begRow, begCol)
 {
-	type = "sub";
+	type = "Sub";
 	length = 2;
 	speed = 2;
 	damage = 2;
 	uWater = false;
+	startRow = begRow;
+	startCol = begCol;
+	orient = orientation;
 	if (orientation == south && ((begRow + (length - 1)) > 10))
 		startRow = 9;
 	if (orientation == south && begRow < 1)
@@ -310,7 +307,7 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 void Sub::getHit(Ship shipType)
 {
 	string tempType = shipType.getType();
-	if (getUwater() == true && tempType == "carrier")
+	if (getUWater() == true && tempType == "Carrier")
 		damage = damage;
 	else
 	{
@@ -319,7 +316,14 @@ void Sub::getHit(Ship shipType)
 		else --damage;
 	}
 }
-
+bool Sub::flipState()
+{
+	if (uWater == false)
+		uWater = true;
+	else
+		uWater = false;
+	return uWater;
+}
 OrientType str2Orient(string dir) {
 	if (dir == "north") return north;
 	else if (dir == "south") return south;
@@ -347,7 +351,7 @@ ostream & operator<<(ostream &out, Ship * ship)
 		<< ship->getDamage() << " "
 		<< ship->getSpeed() << " "
 		<< orient2Str(ship->getOrient());
-	if (ship->getUwater())
+	if (ship->getUWater())
 		out << " underwater";
 	else
 		out << " not underwater";
@@ -355,6 +359,7 @@ ostream & operator<<(ostream &out, Ship * ship)
 	return out;
 }
 
+/*
 int main() {
 	char choice;
 	int numShips, shipId, vel, attackedId;
@@ -399,4 +404,61 @@ int main() {
 	}
 
 	return 0;
+}
+/*
+
+
+bool testInitialization();
+bool testMove();
+bool testGetHit();
+bool testFlipState();
+int main()
+{
+
+	testInitialization();
+	system("pause");
+	return 0;
+}
+
+bool testInitialization()
+{
+
+	// test ship initializations
+	Destroyer a(north, 3, 10), b(south, 8, 5), c(east, 7, 8), d(west, 7, 3);
+	Carrier e(north, 4, 10), f(south, 7, 5), g(east, 9, 7), h(west, 3, 4);
+	Sub i(north, 2, 10), j(south, 9, 5), k(east, 9, 9), l(west, 3, 2);
+	if (a.getStartRow() != 3 || b.getStartRow() != 8|| c.getStartCol() != 8 || d.getStartCol() != 3)
+	{
+		cout << "Destroyer initialization function is incorrect." << endl;
+		return false;
+	}
+	if (e.getStartRow() != 4 || f.getStartRow() != 7 || g.getStartCol() != 7 || h.getStartCol() != 4)
+	{
+		cout << "Carrier initialization function is incorrect." << endl;
+		return false;
+	}
+	if (i.getStartRow() != 2 || j.getStartRow() != 9 || k.getStartCol() != 9 || l.getStartCol() != 2)
+	{
+		cout << "sub initialization function is incorrect." << endl;
+		return false;
+	}
+	// test initializations that exceed board bounds
+	Destroyer m(north, 2, 10), n(south, 9, 5), o(east, 7, 9), p(west, 7, 2);
+	Carrier q(north, 3, 10), r(south, 8, 5), s(east, 9, 8), t(west, 3, 3);
+	Sub u(north, 1, 10), v(south, 9, 5), w(east, 9, 9), x(west, 3, 1);
+	if (m.getStartRow() != 3 || n.getStartRow() != 8 || o.getStartCol() != 8 || p.getStartCol() != 3)
+	{
+		cout << "Destroyer initialization function is incorrect." << endl;
+		return false;
+	}
+	if (q.getStartRow() != 4 || r.getStartRow() != 7 || s.getStartCol() != 7 || t.getStartCol() != 4)
+	{
+		cout << "Carrier initialization function is incorrect." << endl;
+		return false;
+	}
+	if (u.getStartRow() != 2 || v.getStartRow() != 9 || w.getStartCol() != 9 || x.getStartCol() != 2)
+	{
+		cout << "sub initialization function is incorrect." << endl;
+		return false;
+	}
 }
