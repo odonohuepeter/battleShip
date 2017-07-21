@@ -28,6 +28,7 @@ using namespace std;
 
 enum OrientType { north, south, east, west };
 
+// Ship class declaration
 class Ship
 {
 public:
@@ -208,6 +209,8 @@ void Ship::getHit(Ship shipType)
 	}
 	return;
 }
+
+// Destroyer class definition
 class Destroyer : public Ship
 {
 public:
@@ -266,6 +269,7 @@ Destroyer::Destroyer(OrientType orientation, int begRow, int begCol)
 		startRow = 1;
 }
 
+// Carrier class declaration
 class Carrier : public Ship
 {
 public:
@@ -324,6 +328,7 @@ Carrier::Carrier(OrientType orientation, int begRow, int begCol)
 		startRow = 1;
 }
 
+// Sub class definition
 class Sub : public Ship
 {
 public:
@@ -383,7 +388,6 @@ Sub::Sub(OrientType orientation, int begRow, int begCol)
 		startRow = 1;
 }
 
-// sub function definitions
 void Sub::getHit(Ship shipType)
 {
 	/*
@@ -404,6 +408,10 @@ void Sub::getHit(Ship shipType)
 }
 bool Sub::flipState()
 {
+	/*
+	PRE: object of type Sub has been initialized, flipState function called on object
+	POST: object's uWater data member has been changed, control passes back to main function
+	*/
 	if (uWater == false)
 		uWater = true;
 	else
@@ -446,62 +454,13 @@ ostream & operator<<(ostream &out, Ship * ship)
 	return out;
 }
 
-/*
-int main() {
-	char choice;
-	int numShips, shipId, vel, attackedId;
-	string direction, shipType;
-	int startRow, startCol;
-	vector<Ship *> fleet;
-
-	cin >> choice;
-	while (choice != 'q') {
-		if (choice == 'i') {// initialize
-			cin >> numShips;
-			fleet.resize(numShips);
-			for (int i = 0; i < numShips; i++) {
-				cin >> shipType >> direction >> startRow >> startCol;
-				if (shipType == "destroy")
-					fleet[i] = new Destroyer(str2Orient(direction), startRow, startCol);
-				else if (shipType == "carry") {
-					fleet[i] = new Carrier(str2Orient(direction), startRow, startCol);
-				}
-				else if (shipType == "sub") {
-					fleet[i] = new Sub(str2Orient(direction), startRow, startCol);
-				}
-			}
-		}
-		else if (choice == 's') {// status of fleet
-			for (int i = 0; i < fleet.size(); i++)
-				cout << (fleet[i]) << endl;
-		}
-		else if (choice == 'm') { // move
-			cin >> shipId >> vel;
-			fleet[shipId]->move(vel);
-		}
-		else if (choice == 'a') { //attack
-			cin >> shipId >> attackedId;
-			fleet[shipId]->getHit(*fleet[attackedId]);
-		}
-		else if (choice == 'f') {//flip
-			cin >> shipId;
-			fleet[shipId]->flipState();
-		}
-		cin >> choice;
-	}
-
-	return 0;
-}
-*/
-
-
+// unit test function declarations
 bool testInitialization();
 bool testMove();
 bool testGetHit();
 bool testFlipState();
 int main()
 {
-
 	if (testInitialization())
 		cout << "initialization function passed unit tests." << endl;
 	if (testMove())
@@ -510,9 +469,10 @@ int main()
 		cout << "getHit function passed unit tests." << endl;
 	if (testFlipState())
 		cout << "flipState function passed unit tests." << endl;
-	system("pause");
 	return 0;
 }
+
+// unit test function definitions
 
 bool testInitialization()
 {
